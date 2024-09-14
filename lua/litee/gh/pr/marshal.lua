@@ -73,7 +73,7 @@ local function marshal_thread_node(use_original)
                 line = node.thread["line"]
             end
             local root_comment = node["children"][1]["comment"]
-            if root_comment["originalCommit"] ~= vim.NIL then
+            if root_comment["originalCommit"] ~= nil and root_comment["originalCommit"]["oid"] ~= nil then
                 detail = string.sub(root_comment["originalCommit"]["oid"], 1, 8)
                 detail = "@ " .. detail
             end
