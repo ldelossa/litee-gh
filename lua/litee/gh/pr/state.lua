@@ -529,7 +529,14 @@ function M.get_pr_remote_url()
   if protocol == 'https' then
     remote_url = M.pull_state.pr_raw['head']['repo']['clone_url']
   else
-    remote_url = M.pull_state.pr_raw['head']['repo']['ssh_url']
+    -- Defaults to git remote if set
+    local git_origin_url = gitcli.get_git_remote()
+    if git_origin_url ~= nil then
+      remote_url = git_origin_url
+    else
+      remote_url = M.pull_state.pr_raw['head']['repo']['ssh_url']
+    end
+
   end
 
   return remote_url

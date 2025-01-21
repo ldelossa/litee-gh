@@ -138,4 +138,12 @@ function M.git_reset_hard(remote, branch)
     return out
 end
 
+function M.get_git_remote()
+  local out = git_exec([[git config --get remote.origin.url]])
+  if out == nil then
+    return nil
+  end
+  return out:gsub("\n", "")
+end
+
 return M
